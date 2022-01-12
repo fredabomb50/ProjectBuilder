@@ -55,14 +55,15 @@ typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
 typedef unsigned long u64;
-typedef float f32
-typedef double f64
+typedef float f32;
+typedef double f64;
 
 
 //Quick Math
 
 
 //Debugging
+#define Logger(boolean, text) {if(boolean){LogEntry(boolean, text);}else{LogEntry(boolean, text);}}
 
 
 )
@@ -84,32 +85,29 @@ error =
 FILE* logFile;
 
 
-//generic functions
-i32 PrintLine(FILE* report, const i8 LinetoPrint[])
-{
-  fprintf(report, "`%s\n", LinetoPrint);
-  return 0;
-}
-
-
 i32 CreateLog(void)
 {
   logFile = fopen("log.txt", "w");
+  fclose(logFile);
   return 0;
 }
 
 
 i32 LogEntry_Step(bool stepSucceeded, const i8 entry[])
 {
+  logFile = fopen("log.txt", "w");
   if (stepSucceeded)
   {
-    fprintf(logFile, "SUCCESS....................`%s\n", entry);
+    fprintf(logFile, "SUCCESS..........%s\n", entry);
   }
 
   else
   {
-    fprintf(logFile, "FAIL................................`%s\n", entry);
+    fprintf(logFile, "FAILURE..........%s\n", entry);
   }
+
+
+  fclose(logFile);
   return 0;
 }
 
@@ -119,7 +117,13 @@ i32 LogEntry_Step(bool stepSucceeded, const i8 entry[])
 
 functions =
 (
-//NOT AN EMPTY FILE
+//generic functions
+i32 PrintLine(FILE* file, const i8 LinetoPrint[])
+{
+  fprintf(file, "`%s\n", LinetoPrint);
+  fclose(file);
+  return 0;
+}
 )
 
 
@@ -128,7 +132,14 @@ batchBuildGCC =
 (
 @echo off
 
-gcc main.cpp -o ..\build\Main.exe
+SET compilerPath=C:\Users\luis.pacheco\Documents\Tools\Msys2\mingw64\bin\
+SET srcPath=C:\Users\luis.pacheco\Documents\C_Projects\Win32_Test\src\
+SET destPath=C:\Users\luis.pacheco\Documents\C_Projects\Win32_Test\build\
+
+
+PUSHD %compilerPath%
+gcc %srcPath%main.cpp -o %destPath%Main.exe
+POPD
 )
 
 
