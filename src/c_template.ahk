@@ -224,11 +224,11 @@ popd
   SafelyCreateFile(headerFile)
   SafelyWriteToFile(headerFile, header)
 
-  errFile = %src%\err.cpp
+  errFile = %src%\err.h
   SafelyCreateFile(errFile)
   SafelyWriteToFile(errFile, error)
 
-  functionsFile = %src%\functions.cpp
+  functionsFile = %src%\functions.h
   SafelyCreateFile(functionsFile)
   SafelyWriteToFile(functionsFile, function)
 
