@@ -98,12 +98,12 @@ i32 LogEntry_Step(bool stepSucceeded, const i8 entry[])
   logFile = fopen("log.txt", "w");
   if (stepSucceeded)
   {
-    fprintf(logFile, "SUCCESS..........%s\n", entry);
+    fprintf(logFile, "SUCCESS..........`%s\n", entry);
   }
 
   else
   {
-    fprintf(logFile, "FAILURE..........%s\n", entry);
+    fprintf(logFile, "FAILURE..........`%s\n", entry);
   }
 
 
