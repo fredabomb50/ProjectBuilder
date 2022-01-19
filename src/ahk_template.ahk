@@ -36,7 +36,19 @@ DetectHiddenWindows, On
 )
 
 
-function =
+functions =
+(
+;NOT AN EMPTY FILE
+)
+
+
+hotkeys =
+(
+;NOT AN EMPTY FILE
+)
+
+
+hotstrings =
 (
 ;NOT AN EMPTY FILE
 )
@@ -115,9 +127,15 @@ ErrorPrompt(HexValue)
 
   functionsFile = %src%\functions.ahk
   SafelyCreateFile(functionsFile)
-  SafelyWriteToFile(functionsFile, function)
+  SafelyWriteToFile(functionsFile, functions)
 
+	hotkeysFile = %src%\hotkeys.ahk
+  SafelyCreateFile(hotkeysFile)
+  SafelyWriteToFile(hotkeysFile, hotkeys)
 
+	hotstringsFile = %src%\hotstrings.ahk
+	SafelyCreateFile(hotstringsFile)
+	SafelyWriteToFile(hotstringsFile, hotstrings)
 
   return 0
 }

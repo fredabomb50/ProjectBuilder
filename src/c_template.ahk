@@ -63,7 +63,7 @@ typedef double f64;
 
 
 //Debugging
-#define Logger(boolean, text) {if(boolean){LogEntry(boolean, text);}else{LogEntry(boolean, text);}}
+#define log_CheckIfValid(boolean, text) {if(boolean){LogEntry(boolean, text);}else{LogEntry(boolean, text); return 0;}}
 
 
 )
@@ -126,6 +126,12 @@ i32 PrintLine(FILE* file, const i8 LinetoPrint[])
 }
 )
 
+
+resources =
+(
+//not an empty file
+
+)
 
 
 batchBuildGCC =
@@ -251,12 +257,15 @@ popd
   SafelyCreateFile(datatypesFile)
   SafelyWriteToFile(datatypesFile, datatypes)
 
+  resourcesFile = %src%\resources.h
+  SafelyCreateFile(resourcesFile)
+  SafelyWriteToFile(resourcesFile, resources)
 
-  GCCbuildFile = %src%\GCCbuild.bat
+  GCCbuildFile = %src%\build_gcc.bat
   SafelyCreateFile(GCCbuildFile)
   SafelyWriteToFile(GCCbuildFile, batchBuildGCC)
 
-  MSVCbuildFile = %src%\MSVCbuild.bat
+  MSVCbuildFile = %src%\build_msvc.bat
   SafelyCreateFile(MSVCbuildFile)
   SafelyWriteToFile(MSVCbuildFile, batchBuildMSVC)
 

@@ -7,23 +7,42 @@
 
 Gui, 1:New,,Projectree
 Gui 1:Add, Button, x10 y35 gBuild, Build!
-Gui 1:Add, DropDownList, x11 y7 vPlatform, |Windows|UNIX|iOS|MacOS|Android|Pi
-Gui 1:Add, DropDownList, x150 y7 vProjectType, |C/C++|AHK|Batch
+Gui 1:Add, DropDownList, x11 y7 vPlatform gSwitcher, |Windows|UNIX|iOS|MacOS|Android|Pi
 Gui 1:Show
 return
 
 
+Switcher:
+  Gui 1:Submit, Nohide
+
+
+  if (Platform == Windows)
+  {
+    Gui 1:Add, DropDownList, x150 y7 vProjectTypes, C|C++|AHK|Batch
+  }
+  else if (Platform == UNIX)
+  {
+    Gui 1:Add, DropDownList, x150 y7 vProjectTypes, C|C++
+  }
+
+
+return
+
 Build:
   Gui 1:Submit, Nohide
+  InputBox, name, Name it!, exclude filepath and extension.,,,,,,,,Enter name here
+
 
   switch Platform
   {
     Case "Windows":
-      InputBox, name, Name it!, exclude filepath and extension.,,,,,,,,Enter name here
-
-      switch ProjectType
+      switch WindowsProjects
       {
-        Case "C/C++":
+        Case "C":
+          PlotCTree(name)
+        return
+
+        Case "C++":
           PlotCTree(name)
         return
 
@@ -39,17 +58,16 @@ Build:
 
 
     Case "UNIX":
-      InputBox, name, Name it!, exclude filepath and extension.,,,,,,,,Enter name here
-
-      switch ProjectType
+      switch UnixProjects
       {
-        Case "C/C++":
+        Case "C":
           PlotCTree(name)
         return
 
-        Case "AHK":
-          MsgBox, AHK not available for UNIX systems!
+        Case "C++":
+          PlotCTree(name)
         return
+
 
         default:
           MsgBox, test_project
@@ -77,6 +95,8 @@ Build:
       MsgBox, DEFAULTED
     return
   }
+
+
 return
 
 

@@ -7,10 +7,6 @@ SetTitleMatchMode, 2
 DetectHiddenWindows, On
 
 
-;==================================GLOBALS
-
-
-
 ;==================================TEMPLATES
 #Include ahk_template.ahk
 #Include c_template.ahk
@@ -19,3 +15,6 @@ DetectHiddenWindows, On
 ;==================================HANDMADE LIBRARIES
 #Include err.ahk
 #Include functions.ahk
+
+
+;==================================GLOBALS
