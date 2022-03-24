@@ -8,8 +8,8 @@ DetectHiddenWindows, On
 
 
 ;==================================TEMPLATES
-#Include ahk_template.ahk
-#Include c_template.ahk
+#Include windows_templates/ahk_template.ahk
+#Include windows_templates/c_template.ahk
 
 
 ;==================================HANDMADE LIBRARIES

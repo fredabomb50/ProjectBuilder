@@ -7,7 +7,12 @@
 
 Gui, 1:New,,Projectree
 Gui 1:Add, Button, x10 y35 gBuild, Build!
-Gui 1:Add, DropDownList, x11 y7 vPlatform gSwitcher, |Windows|UNIX|iOS|MacOS|Android|Pi
+Gui 1:Add, DropDownList, x11 y7 vPlatform gSwitcher, |Windows|Linux|iOS|MacOS|Android|Pi
+Gui 1:Add, DropDownList, x150 y7 vWindows, |C|C++|AHK|Batch
+Gui 1:Add, DropDownList, x150 y7 vLinux, |C|C++
+
+GuiControl, Hide, Windows
+GuiControl, Hide, Linux
 Gui 1:Show
 return
 
@@ -15,16 +20,20 @@ return
 Switcher:
   Gui 1:Submit, Nohide
 
-
-  if (Platform == Windows)
+  if (Platform == "Windows")
   {
-    Gui 1:Add, DropDownList, x150 y7 vProjectTypes, C|C++|AHK|Batch
+    GuiControl, Show, Windows
+    GuiControl, Hide, Linux
   }
-  else if (Platform == UNIX)
+  else if (Platform == "Linux")
   {
-    Gui 1:Add, DropDownList, x150 y7 vProjectTypes, C|C++
+    GuiControl, Show, Linux
+    GuiControl, Hide, Windows
   }
-
+  else
+  {
+    MsgBox, No selection!
+  }
 
 return
 
@@ -95,7 +104,6 @@ Build:
       MsgBox, DEFAULTED
     return
   }
-
 
 return
 
