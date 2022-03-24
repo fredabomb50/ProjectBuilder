@@ -45,7 +45,7 @@ Build:
   switch Platform
   {
     Case "Windows":
-      switch WindowsProjects
+      switch Windows
       {
         Case "C":
           PlotCTree(name)
@@ -60,14 +60,14 @@ Build:
         return
 
         default:
-          MsgBox, test_project
+          MsgBox, switch on windows failed
         return
       }
     return
 
 
-    Case "UNIX":
-      switch UnixProjects
+    Case "Linux":
+      switch Unix
       {
         Case "C":
           PlotCTree(name)
@@ -77,9 +77,8 @@ Build:
           PlotCTree(name)
         return
 
-
         default:
-          MsgBox, test_project
+          MsgBox, switch on linux failed
         return
       }
     return

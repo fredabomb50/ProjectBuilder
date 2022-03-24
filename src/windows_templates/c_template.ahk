@@ -1,8 +1,16 @@
 PlotCTree(ProjectName)
 {
+; Global Pathing
+root = %A_ScriptDir%\%ProjectName%
+build = %root%\build
+docs = %root%\docs
+src = %root%\src
+
+gccCompiler = ../../tools/MinGW/bin
+
 notes =
 (
-//NOT AN EMPTY FILE
+// NOT AN EMPTY FILE
 )
 
 
@@ -21,24 +29,24 @@ int main (void)
 
 header =
 (
-//Standard Libraries
+//======================Standard Libraries
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
 
 
-//Platform Libraries
+//======================Platform Libraries
 
 
-//Handmade Libraries
+//======================Handmade Libraries
 #include "macros.h"
 #include "datatypes.h"
 #include "err.h"
 #include "functions.h"
 
 
-//Globals
+//======================Globals
 
 
 )
@@ -46,7 +54,7 @@ header =
 
 macros =
 (
-//Redefinitions
+//======================Redefinitions
 typedef char i8;
 typedef short i16;
 typedef int i32;
@@ -59,11 +67,10 @@ typedef float f32;
 typedef double f64;
 
 
-//Quick Math
+//======================Quick Math
 
 
-//Debugging
-#define log_CheckIfValid(boolean, text) {if(boolean){LogEntry(boolean, text);}else{LogEntry(boolean, text); return 0;}}
+//======================Debugging
 
 
 )
@@ -71,20 +78,21 @@ typedef double f64;
 
 datatypes =
 (
-//Enumerations
+//======================Enumerations
 
 
 
-//Structures
+//======================Structures
 )
 
 
 error =
 (
-//GLOBALS
+//======================Globals
 FILE* logFile;
 
 
+//======================Logging
 i32 CreateLog(void)
 {
   logFile = fopen("log.txt", "w");
@@ -93,7 +101,7 @@ i32 CreateLog(void)
 }
 
 
-i32 LogEntry_Step(bool stepSucceeded, const i8 entry[])
+i32 Logger(bool stepSucceeded, const i8 entry[])
 {
   logFile = fopen("log.txt", "w");
   if (stepSucceeded)
@@ -117,7 +125,7 @@ i32 LogEntry_Step(bool stepSucceeded, const i8 entry[])
 
 functions =
 (
-//generic functions
+//======================Printers
 i32 PrintLine(FILE* file, const i8 LinetoPrint[])
 {
   fprintf(file, "`%s\n", LinetoPrint);
@@ -129,22 +137,24 @@ i32 PrintLine(FILE* file, const i8 LinetoPrint[])
 
 resources =
 (
-//not an empty file
+// not an empty file
 
 )
+
+; paths for repo'd compiler and tools
 
 
 batchBuildGCC =
 (
 @echo off
 
-SET compilerPath=C:\Users\luis.pacheco\Documents\Tools\Msys2\mingw64\bin\
-SET srcPath=C:\Users\luis.pacheco\Documents\C_Projects\Win32_Test\src\
-SET destPath=C:\Users\luis.pacheco\Documents\C_Projects\Win32_Test\build\
+SET compilerPath=%gccCompiler%
+SET srcPath=%src%
+SET destPath=%build%
 
 
-PUSHD %compilerPath%
-gcc %srcPath%main.cpp -o %destPath%Main.exe
+PUSHD `%compilerPath`%
+gcc `%srcPath`%main.cpp -o `%destPath`%Main.exe
 POPD
 )
 
@@ -210,22 +220,18 @@ popd
 
 
   ;root directory = project name
-  root = %A_ScriptDir%\%ProjectName%
   FileCreateDir, %root%
 
 
   ;generic build directory
-  build = %root%\build
   FileCreateDir, %build%
 
 
   ;generic docs directory
-  docs = %root%\docs
   FileCreateDir, %docs%
 
 
   ;generic src directory
-  src = %root%\src
   FileCreateDir, %src%
 
 
@@ -268,8 +274,6 @@ popd
   MSVCbuildFile = %src%\build_msvc.bat
   SafelyCreateFile(MSVCbuildFile)
   SafelyWriteToFile(MSVCbuildFile, batchBuildMSVC)
-
-
 
   return 0
 }
