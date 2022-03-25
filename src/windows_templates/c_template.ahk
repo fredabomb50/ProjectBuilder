@@ -2,11 +2,11 @@ PlotCTree(ProjectName)
 {
 ; Global Pathing
 root = %A_ScriptDir%\%ProjectName%
-build = %root%\build
-docs = %root%\docs
-src = %root%\src
+build = %root%\build\
+docs = %root%\docs\
+src = %root%\src\
 
-gccCompiler = ../../tools/MinGW/bin
+gccCompiler = ..\..\tools\MinGW\bin
 
 notes =
 (
