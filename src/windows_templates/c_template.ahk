@@ -156,6 +156,7 @@ SET destPath=%build%
 PUSHD `%compilerPath`%
 gcc `%srcPath`%main.cpp -o `%destPath`%Main.exe
 POPD
+cmd /k
 )
 
 
